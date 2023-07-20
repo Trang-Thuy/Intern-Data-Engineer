@@ -11,6 +11,7 @@ public class ExceptionExample {
             Scanner myReader = new Scanner(myObj);
             System.out.println("No Checked Exception!");
         myReader.close();
+            
         }
         catch (FileNotFoundException e) {
         System.out.println("Checked Exception: " + e);
