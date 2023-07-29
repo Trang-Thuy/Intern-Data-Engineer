@@ -51,6 +51,8 @@ Thông thường, để kiểm tra đối sánh một bản ghi, ta thường s�
 Vì truy vấn `DISTINCT` có cơ chế loại bỏ các bản ghi trùng lặp trong tập kết quả. Đối với các database có số lượng bản ghi lớn, việc sử dụng truy vấn này sẽ gây ra việc tốn nhiều tài nguyên và làm chậm quá trình truy vấn. 
 Truy vấn `GROUP_BY` sẽ tạo các nhóm (group) dựa trên giá trị của cột, và chỉ trả về một bản ghi đại diện cho mỗi giá trị. Vì vậy, việc sử dụng `GROUP_BY` sẽ tối ưu hóa hiệu suất câu truy vấn, đặc biệt trường hợp có số lượng bản ghi lớn
 
+Chương trình cài đặt: _W4.sql_
+
 ### 3. Tìm hiểu về các loại db và trình bày lại (ít nhất 3 db thuộc loại sql, 3 db thuộc loại no sql).
 ![Hình ảnh](https://cdn.hashnode.com/res/hashnode/image/upload/v1611320777073/Dfl-ideXq.png?auto=compress,format&format=webp)
 
