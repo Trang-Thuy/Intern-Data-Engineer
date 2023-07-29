@@ -13,6 +13,7 @@ MySQL hỗ trợ nhiều hệ điều hành như Windows, Linux, MacOS...
 a. Kiến trúc MySQL: mô tả cách các thành phần trong MySQL tương tác với nhau. Đây là một hệ thống _client-server system_. Client có thể truy cập tài nguyên dữ liệu qua các ứng dụng dịch vụ mạng. 
 
 ![Hình ảnh](https://media.geeksforgeeks.org/wp-content/uploads/20210211183907/MySQLArchi.png)
+
 Ta có thể chia kiến trúc của MySQL thành 3 layer chính: 
 - Client layer
 - Server layer
