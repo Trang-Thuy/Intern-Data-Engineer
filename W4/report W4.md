@@ -1,5 +1,5 @@
 ﻿
-# Tuần 4 
+# Báo cáo tuần 4 
 ## Yêu cầu
 ### 1. Tự cài đặt một cơ sở dữ liệu trên máy tính (cụ thể là mysql). trình bày chi tiết về các thành phần liên quan 
 ### 2. Tự lấy ví dụ về 5 câu query không tốt và cách tối ưu nó. 
@@ -12,8 +12,7 @@ MySQL hỗ trợ nhiều hệ điều hành như Windows, Linux, MacOS...
 #### 1.2. Các thành phần liên quan 
 a. Kiến trúc MySQL: mô tả cách các thành phần trong MySQL tương tác với nhau. Đây là một hệ thống _client-server system_. Client có thể truy cập tài nguyên dữ liệu qua các ứng dụng dịch vụ mạng. 
 
-<center>![Hình ảnh](https://media.geeksforgeeks.org/wp-content/uploads/20210211183907/MySQLArchi.png)</center>
-
+![Hình ảnh](https://media.geeksforgeeks.org/wp-content/uploads/20210211183907/MySQLArchi.png)
 Ta có thể chia kiến trúc của MySQL thành 3 layer chính: 
 - Client layer
 - Server layer
@@ -36,17 +35,20 @@ Trong đó:
 - **Layer 3 - Storage Layer**: Tùy thuộc vào yêu cầu và tình huống, các công cụ lưu trữ dữ liệu được sử dụng là InnoDB, MyISAM, NDB, Memory...
 
 ### 2. Tự lấy ví dụ về 5 câu query không tốt và cách tối ưu nó. 
-#### 2.1.
-Thêm chỉ mục cho cột tìm kiếm để tăng tốc độ truy vấn
-#### 2.2.
-Để tránh quét/tìm kiếm toàn bộ bảng, nên sử dụng toàn bộ cụm từ với phép so sánh LIKE
-#### 2.3.
-Sử dụng COUNT(1) thay vì COUNT(*), để đếm số lượng hàng mà không quan tâm đến nội dung của các hàng
-#### 2.4.
-Sử dụng truy vấn JOIN để lấy thông tin từ hai bảng
-#### 2.5.
+#### 2.1. Thêm chỉ mục cho cột
+Việc thêm chỉ mục sẽ tối ưu quá trình tìm kiếm và sắp xếp cột, nhờ đó việc truy vấn (tìm kiếm hoặc sắp xếp dữ liệu) trên cột sẽ nhanh hơn. Tuy nhiên việc thêm chỉ mục có thể ảnh hưởng đến hiệu suất các thao tác thêm, sửa, xóa dữ liệu trong bảng. Vì vậy, ta chỉ nên thêm chỉ mục cho các cột thường xuyên thực hiện truy vấn
+#### 2.2. Sử dụng các kí tự đại diện (Wildcard character) hợp lý
+Các ký tự đại diện được sử dụng làm tiền tố, hậu tố. Ký tự `%` được sử dụng để tìm kiếm tất cả bản ghi khớp với trường đã chọn.
 
+#### 2.3. Sử dụng SELECT < columns> thay cho SELECT*
+Khi sử dụng truy vấn `SELECT*`, các cột thông tin không cần thiết được tải lên database, điều này sẽ làm chậm SQL và toàn bộ hệ thống.
 
+#### 2.4. Sử dụng EXISTS() thay cho COUNT()
+Thông thường, để kiểm tra đối sánh một bản ghi, ta thường sử dụng `EXISTS()` hoặc `COUNT()`. Tuy nhiên, cơ chế của `EXISTS()` là khi tìm thấy bản ghi phù hợp, nó sẽ thoát ngay. Còn cơ chế của `COUNT()` sẽ quét toàn bộ database dù bản ghi đã được tìm thấy. Vì vậy, việc sử dụng `EXISTS()` thay vì truy vấn `COUNT()` sẽ tối ưu hơn.
+
+#### 2.5. Sử dụng GROUP_BY thay DISTINCT
+Vì truy vấn `DISTINCT` có cơ chế loại bỏ các bản ghi trùng lặp trong tập kết quả. Đối với các database có số lượng bản ghi lớn, việc sử dụng truy vấn này sẽ gây ra việc tốn nhiều tài nguyên và làm chậm quá trình truy vấn. 
+Truy vấn `GROUP_BY` sẽ tạo các nhóm (group) dựa trên giá trị của cột, và chỉ trả về một bản ghi đại diện cho mỗi giá trị. Vì vậy, việc sử dụng `GROUP_BY` sẽ tối ưu hóa hiệu suất câu truy vấn, đặc biệt trường hợp có số lượng bản ghi lớn
 
 ### 3. Tìm hiểu về các loại db và trình bày lại (ít nhất 3 db thuộc loại sql, 3 db thuộc loại no sql).
 ![Hình ảnh](https://cdn.hashnode.com/res/hashnode/image/upload/v1611320777073/Dfl-ideXq.png?auto=compress,format&format=webp)
@@ -57,13 +59,13 @@ Có hai ứng dụng chính:
 - `Xử lý phân tích trực tuyến (OLAP)`: phân tích dữ liệu quá khứ tổng hợp từ ứng dụng OLTP. Ứng dụng này cần kho dữ liệu hỗ trợ việc đọc dữ liệu thông lượng cao (high throughput) của một số lượng lớn bản ghi. 
 
 ![Hình ảnh 2](https://www.ml4devs.com/images/illustrations/rdbms-vs-columnar-or-oltp-vs-olap-databases.webp)
-<center> _Hình ảnh minh họa hai ứng dụng chính: OLTP và OLAP trong SQL_ </center>
+ _Hình ảnh minh họa hai ứng dụng chính: OLTP và OLAP trong SQL_ 
 
 **NoSQL(Not Relational Structured Query Language)** sử dụng các phương thức lưu trữ và truy xuất dữ liệu không cấu trúc hoặc có cấu trúc linh hoạt hơn, phù hợp với các ứng dụng và trường hợp sử dụng đặc biệt. NoSQL phục vụ cho các loại dữ liệu bán cấu trúc như: key-value, wide column, document (cây) và đồ thị (graph).
 NoSQL được sử dụng rộng rãi và phổ biến nhờ cung cấp khả năng mở rộng quy mô theo chiều ngang
 #### 3.1. So sánh SQL và NoSQL
 ![Hình a](https://www.ml4devs.com/images/illustrations/sql-vs-nosql-comparision.webp)
-<center> _So sánh SQL và NoSQL_ </center>
+ _So sánh SQL và NoSQL_ 
 
 |So sánh      | SQL | NoSQL  |
 | -------------- | ---- | -------------- |
@@ -92,19 +94,23 @@ Các database thuộc kiểu **Relation Database**:
 -   Microsoft Azure: Hosted SQL Server as  [Azure SQL Database](https://azure.microsoft.com/en-in/products/azure-sql/database/)
 -   Google Cloud: Hosted PostgreSQL and MySQL in  [Cloud SQL](https://cloud.google.com/sql/), [Cloud Spanner](https://cloud.google.com/spanner)
 
-**a. MySQL**: hệ thống quản lý CSDL mã nguồn mở, phổ biến và miễn phí. Hệ thống này được sử dụng rộng rãi cho các ứng dụng web và ứng dụng di động
-- MySQL là một hệ thống quản lý cơ sở dữ liệu mã nguồn mở, miễn phí và rất phổ biến.
--   Nó hỗ trợ nhiều hệ điều hành, bao gồm Windows, macOS và các hệ điều hành Linux.
--   MySQL thường được sử dụng cho các ứng dụng web và ứng dụng di động do tính năng nhẹ và tốc độ xử lý nhanh của nó.
-
-**b. PostgreSQL**: hệ thống quản lý CSDEL mã nguồn mở và mạnh mẽ, hỗ trợ nhiều tính năng phong phú
+**a. PostgreSQL**: hệ thống quản lý CSDL mã nguồn mở và mạnh mẽ, hỗ trợ nhiều tính năng phong phú, có tính mở rộng cao hơn MySQL
 - PostgreSQL là một hệ thống quản lý cơ sở dữ liệu mã nguồn mở, mạnh mẽ và đa chức năng.
 -   Nó hỗ trợ các tính năng phong phú như kiểu dữ liệu tùy chỉnh, chức năng, giao dịch, và truy vấn phức tạp.
 -   PostgreSQL được ưa chuộng trong các ứng dụng doanh nghiệp và dự án yêu cầu tính bảo mật cao và hiệu suất tốt.
 
-**d. Oracle Database**: Oracle là một hệ thống quản lý cơ sở dữ liệu do Oracle Corporation phát triển, hỗ trợ cho các hệ thống doanh nghiệp phức tạp.
-- Oracle Database là một hệ thống quản lý cơ sở dữ liệu được phát triển bởi Oracle Corporation.
--   Nó được coi là một trong những hệ thống quản lý cơ sở dữ liệu mạnh mẽ và phổ biến nhất trong môi trường doanh nghiệp.
+**b. Oracle Database**: Oracle là một hệ thống quản lý cơ sở dữ liệu do Oracle Corporation phát triển, hỗ trợ cho các hệ thống doanh nghiệp phức tạp.
+Tương tự với các RDBMS phổ biến, Oracle Database được xây dựng dựa trên tiêu chuẩn chuẩn hóa của ngôn ngữ lập trình SQL cho phép quản lý và truy vấn dữ liệu trên server một cách hiệu quả. 
+Các mô hình kiến trúc của Oracle bao gồm một số các ràng buộc ACID đảm bảo tính chính xác cao nhất và độ xử lý tin cậy cho dữ liệu. 
+
+Kiến trúc của Oracle Database bao gồm:
+![hình ảnh](https://www.oracletutorial.com/wp-content/uploads/2019/07/Oracle-Database-Architecture.png)
+-   Cấu trúc lưu trữ vật lý của cơ sở dữ liệu là các tệp chứa dữ liệu, siêu dữ liệu và các tệp quản lý ghi lại thay đổi của dữ liệu. Cơ sở dữ liệu và các phiên bản của nó thực hiện lưu trữ và quản lý các tệp.
+-   Cấu trúc lưu trữ logic của Oracle Database bao gồm khối dữ liệu là các phạm vi và nhóm các khối dữ liệu liền kề nhau. Phân đoạn là tập hợp các phạm vi mở rộng. Không gian bảng là các vùng chứa cho phân đoạn.
+
+Mỗi một phiên bản Oracle database được tạo nên dựa trên tập hợp các [bộ nhớ đệm](https://bkhost.vn/blog/cache-la-gi/) chứa các nhóm bộ nhớ chia sẻ được gọi là SGA – hệ thống toàn cầu. Các phiên bản Oracle đều có một tiến trình chạy ngầm quản lý các chức năng I/O, giám sát cơ sở dữ liệu giúp hỗ trợ tối ưu hoá hiệu suất và độ tin cậy cao.
+
+Quy trình tương tác Oracle sẽ là các process máy khách được kết nối với một phiên bản dữ liệu phù hợp để chạy code ứng dụng bất kỳ. Process máy chủ được kết nối với khu vực chương trình chung (khác SGA) và chịu trách nhiệm quản lý tương tác của process máy khách và database.
 -   Oracle Database hỗ trợ các tính năng cao cấp như quản lý tương thích, bảo mật, và khả năng mở rộng lớn.
 #### 3.1.2. Comlumnar Database
 Với ứng dụng OLAP, các phân tích dữ liệu được phân tích với thao tác đọc cột. Vì vậy 
@@ -160,3 +166,5 @@ Các database thuộc kiểu Graph Database: Neo4j
  [3]  [SQL vs. NoSQL Database: When to Use, How to Choose – Machine Learning for Developers (ml4devs.com)](https://www.ml4devs.com/articles/datastore-choices-sql-vs-nosql-database/)
  
  [4]  [O'Reilly High Performance MySQL 3rd Edition Mar 2012.pdf at master · lackrp/lackrp-public (github.com)](https://github.com/lackrp/lackrp-public/blob/master/eBooks/O'Reilly.High.Performance.MySQL.3rd.Edition.Mar.2012.pdf)
+[5] [PostgreSQL System Architecture - GeeksforGeeks]( https://www.geeksforgeeks.org/postgresql-system-architecture/)
+[6][Oracle Database Architecture](https://www.oracletutorial.com/oracle-administration/oracle-database-architecture/)
