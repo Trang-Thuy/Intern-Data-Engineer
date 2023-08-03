@@ -63,6 +63,7 @@ Có hai ứng dụng chính:
 
 **NoSQL(Not Relational Structured Query Language)** sử dụng các phương thức lưu trữ và truy xuất dữ liệu không cấu trúc hoặc có cấu trúc linh hoạt hơn, phù hợp với các ứng dụng và trường hợp sử dụng đặc biệt. NoSQL phục vụ cho các loại dữ liệu bán cấu trúc như: key-value, wide column, document (cây) và đồ thị (graph).
 NoSQL được sử dụng rộng rãi và phổ biến nhờ cung cấp khả năng mở rộng quy mô theo chiều ngang
+
 `CAP (Consistency - Availability - Partition Tolerance)`: là ba yêu cầu về thuộc tính trong một hệ thống phân tán với dữ liệu được sao chép. 
 - Tính nhất quán (Consistency): cần đảm bảo rằng mọi nút trong cụm dữ liệu phân tán đều trả về cùng một lần ghi gần nhất. Các nút trong cụm có cùng một bản sao của dữ liệu đã được sao chép, hiển thị cho các giao dịch khác nhau
 - Tính khả dụng (Availability): Các yêu cầu đọc/ghi với các mục dữ liệu sẽ được xử lý thành công hoặc sẽ nhận được thông báo thao tác không thể hoàn tất nếu bị lỗi. Mọi nút phải có khả năng phản hồi trong một khoảng thời gian hợp lý.
