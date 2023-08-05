@@ -113,14 +113,7 @@ Các database thuộc kiểu **Relation Database**:
 Tương tự với các RDBMS phổ biến, Oracle Database được xây dựng dựa trên tiêu chuẩn chuẩn hóa của ngôn ngữ lập trình SQL cho phép quản lý và truy vấn dữ liệu trên server một cách hiệu quả. 
 Các mô hình kiến trúc của Oracle bao gồm một số các ràng buộc ACID đảm bảo tính chính xác cao nhất và độ xử lý tin cậy cho dữ liệu. 
 
-Kiến trúc của Oracle Database bao gồm:
-![hình ảnh](https://www.oracletutorial.com/wp-content/uploads/2019/07/Oracle-Database-Architecture.png)
--   Cấu trúc lưu trữ vật lý của cơ sở dữ liệu là các tệp chứa dữ liệu, siêu dữ liệu và các tệp quản lý ghi lại thay đổi của dữ liệu. Cơ sở dữ liệu và các phiên bản của nó thực hiện lưu trữ và quản lý các tệp.
--   Cấu trúc lưu trữ logic của Oracle Database bao gồm khối dữ liệu là các phạm vi và nhóm các khối dữ liệu liền kề nhau. Phân đoạn là tập hợp các phạm vi mở rộng. Không gian bảng là các vùng chứa cho phân đoạn.
 
-Mỗi một phiên bản Oracle database được tạo nên dựa trên tập hợp các [bộ nhớ đệm](https://bkhost.vn/blog/cache-la-gi/) chứa các nhóm bộ nhớ chia sẻ được gọi là SGA – hệ thống toàn cầu. Các phiên bản Oracle đều có một tiến trình chạy ngầm quản lý các chức năng I/O, giám sát cơ sở dữ liệu giúp hỗ trợ tối ưu hoá hiệu suất và độ tin cậy cao.
-
-Quy trình tương tác Oracle sẽ là các process máy khách được kết nối với một phiên bản dữ liệu phù hợp để chạy code ứng dụng bất kỳ. Process máy chủ được kết nối với khu vực chương trình chung (khác SGA) và chịu trách nhiệm quản lý tương tác của process máy khách và database.
 -   Oracle Database hỗ trợ các tính năng cao cấp như quản lý tương thích, bảo mật, và khả năng mở rộng lớn.
 #### 3.1.2. Comlumnar Database
 Với ứng dụng OLAP, các phân tích dữ liệu được phân tích với thao tác đọc cột. Vì vậy 
