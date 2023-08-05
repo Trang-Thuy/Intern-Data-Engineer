@@ -176,5 +176,5 @@ Các database thuộc kiểu Graph Database: Neo4j
  [3]  [SQL vs. NoSQL Database: When to Use, How to Choose – Machine Learning for Developers (ml4devs.com)](https://www.ml4devs.com/articles/datastore-choices-sql-vs-nosql-database/)
  
  [4]  [O'Reilly High Performance MySQL 3rd Edition Mar 2012.pdf at master · lackrp/lackrp-public (github.com)](https://github.com/lackrp/lackrp-public/blob/master/eBooks/O'Reilly.High.Performance.MySQL.3rd.Edition.Mar.2012.pdf)
-[5] [PostgreSQL System Architecture - GeeksforGeeks]( https://www.geeksforgeeks.org/postgresql-system-architecture/)
-[6][Oracle Database Architecture](https://www.oracletutorial.com/oracle-administration/oracle-database-architecture/)
+ [5] [PostgreSQL System Architecture - GeeksforGeeks]( https://www.geeksforgeeks.org/postgresql-system-architecture/)
+ [6][Oracle Database Architecture](https://www.oracletutorial.com/oracle-administration/oracle-database-architecture/)
