@@ -67,7 +67,7 @@ NoSQL được sử dụng rộng rãi và phổ biến nhờ cung cấp khả n
 `CAP (Consistency - Availability - Partition Tolerance)`: là ba yêu cầu về thuộc tính trong một hệ thống phân tán với dữ liệu được sao chép. 
 - Tính nhất quán (Consistency): cần đảm bảo rằng mọi nút trong cụm dữ liệu phân tán đều trả về cùng một lần ghi gần nhất. Các nút trong cụm có cùng một bản sao của dữ liệu đã được sao chép, hiển thị cho các giao dịch khác nhau
 - Tính khả dụng (Availability): Các yêu cầu đọc/ghi với các mục dữ liệu sẽ được xử lý thành công hoặc sẽ nhận được thông báo thao tác không thể hoàn tất nếu bị lỗi. Mọi nút phải có khả năng phản hồi trong một khoảng thời gian hợp lý.
-- Dung sai phân vùng (Partition Tolerance): Ngay cả khi mạng kết nối các nút bị lỗi, dẫn đến hai hoặc nhiều phân vùng khác, hệ thống vẫn có thể tiếp tục hoạt động, duy trì đảm bảo tính nhất quán dù tồn tại các phân vùng mạng.
+- Khả năng chịu lỗi của hệ (Partition Tolerance): Ngay cả khi mạng kết nối các nút bị lỗi, dẫn đến hai hoặc nhiều phân vùng khác, hệ thống vẫn có thể tiếp tục hoạt động, duy trì đảm bảo tính nhất quán dù tồn tại các phân vùng mạng.
 
 Định lý CAP: Cơ sở dữ liệu phân tán có thể có tối đa hai trong ba thuộc tính trên. Do đó, các hệ thống CSDL chỉ ưu tiên hai thuộc tính trong một thời điểm. Các CSDL NoSQL được phân loại dựa trên các thuộc tính CAP mà nó hỗ trợ:
 - CA: Hệ thống ưu tiên tính khả dụng hơn tính tính nhất quán và có thể phản hồi dữ liệu cũ
