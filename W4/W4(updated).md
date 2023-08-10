@@ -171,7 +171,8 @@ Các database thuộc kiểu Graph Database: Neo4j
  - Nó được thiết kế để lưu trữ và truy vấn các đối tượng và mối quan hệ giữa chúng dưới dạng đồ thị.
  - Neo4j thường được sử dụng trong các ứng dụng liên quan đến phân tích mạng xã hội, kiến trúc hướng đối tượng, và hệ thống tìm kiếm.
  ### 4. (BỔ SUNG) Tìm hiểu các Storage Engine trong MySQL
- **Layer 3 - Storage Layer**: Tùy thuộc vào yêu cầu và tình huống, các công cụ lưu trữ dữ liệu được sử dụng là InnoDB, MyISAM, NDB, Memory... **Storage Engine** là module phần mềm được hệ thống quản lý cơ sở dữ liệu sử dụng để thực hiện các thao tác CRUD từ cơ sở dữ liệu. Từ phiên bản MySQL 5.5 trở lên, module Storage Engine mặc định là **InnoDB**, còn các phiên bản trước phiên bản 5.5 thì Storage Engine mặc định là **MyISAM**. 
+ **Layer 3 - Storage Layer**: Tùy thuộc vào yêu cầu và tình huống, các công cụ lưu trữ dữ liệu được sử dụng là InnoDB, MyISAM, NDB, Memory... **Storage Engine** là module phần mềm được hệ thống quản lý cơ sở dữ liệu sử dụng để thực hiện các thao tác CRUD từ cơ sở dữ liệu. 
+ Từ phiên bản MySQL 5.5 trở lên, module Storage Engine mặc định là **InnoDB**, còn các phiên bản trước phiên bản 5.5 thì Storage Engine mặc định là **MyISAM**. 
  Có hai loại Engine chính trong MySQL: transactional và non-transactional
  #### 4.1. Storage Engine kiểu transactional
  **a. InnoDB**: Đây là Storage Engine mới, có nhiều tính năng và ưu điểm vượt trội hơn MyISAM, được thiết kế để đạt hiệu suất tối đa khi xử lý lượng dữ liêu lớn. 
@@ -240,6 +241,7 @@ MongoDB ưu tiên tính khả dụng và khả năng chịu lỗi hơn tính nh�
 MongoDB lưu trữ dữ liệu dưới dạng BSON (JSON nhị phân). CSDL này thường được sử dụng cho dữ liệu lớn và các ứng dụng thời gian thực (real-time) đặt nhiều vị trí khác nhau. 
 Cơ sở dữ liệu này đạt được tính khả dụng cao bằng cách sử dụng kiến trúc phân tán cótập bản sao dữ liệu. Tập bản sao dữ liệu gồm nhiều phiên bản dữ liệu, trong có có đúng một phiên bản đóng vai trò là nút chính (primary node). Nút chính có vai trò xử lý các thao tác ghi, còn các phiên bản khác đóng vai trò là nút phụ (secondary node) có nhiệm vụ sao chép dữ liệu từ nút chính. 
 Theo cài đặt mặc định, máy khách đọc dữ liệu từ node chính, nhưng cũng có thể tùy chọn đọc dữ liệu từ nút phụ.
+
 ![Hình ảnh](https://rukshanjayasekara.files.wordpress.com/2021/03/0_ifcdubxfcevqxnv3.jpg)
 - Dữ liệu trên MongoDB có thể có nhiều bản sao nhưng chỉ có một nút chính. Các bản sao là nhóm các bản dữ liệu duy trì cùng một bộ dữ liệu. Nếu nút chính bị hỏng (bị ngắt kết nối với máy khách), một nút mới sẽ được chọn làm nút chính.  Tất cả các nút phụ khác sẽ cập nhật dữ liệu để bắt kịp với nút chính mới. Cụm dữ liệu khả dụng trở lại. Trong khoảng thời này, các thao tác ghi không thể thực hiện nên dữ liệu vẫn _nhất quán_ trên toàn bộ mạng. Nhờ cơ chế thay nút chính trên, khi phân vùng mạng xảy ra, hệ thống vẫn hoạt động bình thường, _khả năng chịu lỗi_ được đảm bảo. 
 - Cơ chế sao chép dữ liệu cho phép tính nhất quán trễ trên tập bản sao dữ liệu. Các cập nhật dữ liệu trên nút chính được sao chép không đồng bộ sang các nút phụ, và có độ trễ nhất định trước khi tất cả các nút có dữ liệu nhất quán với nhau. 
@@ -252,6 +254,7 @@ Cassandra là cơ sở dữ liệu thuộc loại AP trong CAP, tập trung ưu 
 - Cassandra cung cấp tính nhất quán trễ (eventually consistent). Khi một thao tác ghi hoàn tất, dữ liệu mới nhất sẽ khả dụng với điều kiện không còn thay đổi nào được thực hiện sau đó.
 - Nhờ kiến trúc trên, Cassandra có thể cung cấp hiệu suất tốt khi số lượng nút tăng
 Trong trường hợp mạng bị phân vùng, dữ liệu trở nên không nhất quán, cơ sở dữ liệu này cung cấp chức năng giúp các nút bắt kịp với các nút khác.
+
 ![Hình ảnh](https://sp-ao.shortpixel.ai/client/to_auto,q_lossy,ret_img,w_600/https://www.instaclustr.com/wp-content/uploads/2021/10/The-CAP-Theorem-With-Apache-Cassandra-and-MongoDB4-2-1024x1024.png)
  ### 8. Tài liệu tham khảo 
  [1]  [Architecture of MySQL - GeeksforGeeks](https://www.geeksforgeeks.org/architecture-of-mysql/)
@@ -261,11 +264,12 @@ Trong trường hợp mạng bị phân vùng, dữ liệu trở nên không nh�
  [3]  [SQL vs. NoSQL Database: When to Use, How to Choose – Machine Learning for Developers (ml4devs.com)](https://www.ml4devs.com/articles/datastore-choices-sql-vs-nosql-database/)
  
  [4]  [O'Reilly High Performance MySQL 3rd Edition Mar 2012.pdf at master · lackrp/lackrp-public (github.com)](https://github.com/lackrp/lackrp-public/blob/master/eBooks/O'Reilly.High.Performance.MySQL.3rd.Edition.Mar.2012.pdf)
-
-[5] [PostgreSQL System Architecture - GeeksforGeeks]( https://www.geeksforgeeks.org/postgresql-system-architecture/)
-[6][Oracle Database Architecture](https://www.oracletutorial.com/oracle-administration/oracle-database-architecture/)
-	[7] [MySQL :: MySQL 8.0 Reference Manual :: 15 The InnoDB Storage Engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)
-	[8] [MySQL storage engines - Zetcode](https://zetcode.com/mysql/storageengines/)
+ [5] [PostgreSQL System Architecture - GeeksforGeeks]( https://www.geeksforgeeks.org/postgresql-system-architecture/)
+ [6][Oracle Database Architecture](https://www.oracletutorial.com/oracle-administration/oracle-database-architecture/)
+ [7] [MySQL :: MySQL 8.0 Reference Manual :: 15 The InnoDB Storage Engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)
+ 
+ 
+ [8] [MySQL storage engines - Zetcode](https://zetcode.com/mysql/storageengines/)
 	[9] [Role of Apache Cassandra in the CAP theorem](https://www.msystechnologies.com/blog/role-of-apache-cassandra-in-the-cap-theorem/)
 	[10] [The CAP Theorem With Apache Cassandra and MongoDB - instaclustr](https://www.instaclustr.com/blog/cassandra-vs-mongodb/)
 	
