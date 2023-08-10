@@ -5,9 +5,9 @@
 ### 2. Tự lấy ví dụ về 5 câu query không tốt và cách tối ưu nó. 
 ### 3. Tìm hiểu về các loại db và trình bày lại (ít nhất 3 db thuộc loại sql, 3 db thuộc loại no sql). 
 > Tham khảo: [SQL vs. NoSQL Database: When to Use, How to Choose – Machine Learning for Developers (ml4devs.com)](https://www.ml4devs.com/articles/datastore-choices-sql-vs-nosql-database/)
-#### 4. (BỔ SUNG) Tìm hiểu chi tiết Storage Layer trong MySQL
-#### 5. (BỔ SUNG) Tìm hiểu về chỉ mục (index) trong MySQL
-#### 6. (BỔ SUNG) Tìm hiểu về một số loại database triển khai theo các tiêu chi trong định lý CAP
+### 4. (BỔ SUNG) Tìm hiểu chi tiết Storage Layer trong MySQL
+### 5. (BỔ SUNG) Tìm hiểu về chỉ mục (index) trong MySQL
+### 6. (BỔ SUNG) Tìm hiểu về một số loại database triển khai theo các tiêu chi trong định lý CAP
 ## Nội dung
 ### 1. Tự cài đặt một cơ sở dữ liệu trên máy tính (cụ thể là mysql). trình bày chi tiết về các thành phần liên quan 
 #### 1.1. Cài đặt cơ sở dữ liệu mySQL
@@ -215,9 +215,11 @@ Có chỉ mục trên cột _actor_id_, MySQL sẽ sử dụng chỉ mục này 
 Một chỉ mục chứa các giá trị của một hoặc nhiều cột trong bảng. Khi lập chỉ mục cho nhiều cột, ta cần lưu ý thứ tự các cột vì MySQL chỉ tìm kiếm hiệu quả trên tiền tố ngoài cùng bên trái (leftmost prefix) của chỉ mục. Ngoài ra, việc tạo chỉ mục trên hai cột khác với việc tạo hai chỉ mục trên một cột riêng biệt
 #### 5.1. Các loại chỉ mục
 Có nhiều loại chỉ mục được thiết kế cho các mục đích khác nhau. Các chỉ mục được triển khai ở lớp Storage Engine, không phải ở lớp Server. Vì vậy, việc lập chỉ mục ở các Engine khác nhau sẽ khác nhau về cách thức hoạt động...
+
 **a. B-Tree index**
 Chỉ mục B-Tree sử dụng cấu trúc dữ liệu B-Tree để lưu trữ dữ liệu dưới dạng các nút được sắp xếp theo thứ tự nhất định. Dữ liệu index được tổ chức và lưu trữ theo dạng cây, gồm có root, branch và leaf. Nhờ vậy, Storage Engine không cần duyệt toàn bộ bảng để tìm kiếm dữ liệu mà nó sẽ duyệt bắt đầu từ nút root. Đây là một quá trình đệ quy bắt đầu từ nút root, tìm kiếm tới branch và leaf, có điều kiện dừng là khi điều kiện truy vấn được thỏa mãn. Với chỉ mục kiểu B-Tree, dữ liệu được sắp xếp theo thứ tự, nhờ vậy các câu truy vấn như _ORDER BY_ hay _GROUP BY_ được tối ưu hơn
 Tuy nhiên khi thực hiện các thao tác insert hay update thì thao tác sẽ bị chậm vì cần sắp xếp lại thứ tự chỉ mục.
+
 **b. Hash index**
 Bằng cách sử dụng kỹ thuật hashing, các chỉ mục được xây dựng trên một bảng băm để lưu trữ và tìm kiếm dữ liệu. Hash table là một cấu trúc dữ liệu mà có thể cho phép thực hiện việc map các cặp keys, values. Hash Table sử dụng Hash function để tính toán một index vào một mảng các buckets, từ đó có thể tìm thấy các giá trị mong muốn.  Vì vậy, hash index có tốc độ nhanh hơn kiểu B-Tree index. Tuy nhiên, cũng vì sử dụng kĩ thuật hashing nên dữ liệu trong bảng không được sắp xếp theo thứ tự, hash index không thể hỗ trợ tìm kiếm trong phạm vi mà chỉ phù hợp với tìm kiếm trả về kết quả chính xác.
 
@@ -225,11 +227,9 @@ Kĩ thuật hashing được chia thành 2 loại chính là: Static Hashing và
 
 #### 5.2. Các ưu điểm chính khi sử dụng chỉ mục 
 - Cho phép máy chủ nhanh chóng điều hướng đến vị trí dữ liệu cần thiết trong bảng
-- 
 - Chỉ mục làm giảm lượng dữ liệu mà máy chủ phải quét/kiểm tra
 - Chỉ mục giúp máy chủ tránh sắp xếp và bảng tạm thời
 - 
-### 6. (BỔ SUNG) Tìm hiểu về truy vấn JOIN trong MySQL
 ### 7. (BỔ SUNG) Tìm hiểu về một số loại database triển khai theo các tiêu chí trong định lý CAP
 Định lý CAP: Khi phân vùng mạng xảy ra, một hệ thống phân tán phải lựa chọn giữa tính nhất quán và tính khả dụng. Việc tồn tại cả tính nhất quán và tính khả dụng là không thể.
 - C (Consistency): tính nhất quán của cơ sở dữ liệu. Xét một khung thời gian, mọi người dùng truy cập CSDL sẽ cùng đọc một dữ liệu. Để đảm bảo tính nhất quán này, khi một thông tin được cập nhật/một giao dịch thành công, các bản cập nhật sẽ được chuyển tiếp đến tất cả các nút ngay lập tức. Ngược lại, nếu giao dịch không thành công và không được lưu, các dữ liệu cập nhật về giao dịch sẽ không được lưu và được khôi phục. Dữ liệu được duy trì nhất quán trên tất cả các nút
@@ -261,8 +261,9 @@ Trong trường hợp mạng bị phân vùng, dữ liệu trở nên không nh�
  [3]  [SQL vs. NoSQL Database: When to Use, How to Choose – Machine Learning for Developers (ml4devs.com)](https://www.ml4devs.com/articles/datastore-choices-sql-vs-nosql-database/)
  
  [4]  [O'Reilly High Performance MySQL 3rd Edition Mar 2012.pdf at master · lackrp/lackrp-public (github.com)](https://github.com/lackrp/lackrp-public/blob/master/eBooks/O'Reilly.High.Performance.MySQL.3rd.Edition.Mar.2012.pdf)
-	[5] [PostgreSQL System Architecture - GeeksforGeeks]( https://www.geeksforgeeks.org/postgresql-system-architecture/)
-	[6][Oracle Database Architecture](https://www.oracletutorial.com/oracle-administration/oracle-database-architecture/)
+
+[5] [PostgreSQL System Architecture - GeeksforGeeks]( https://www.geeksforgeeks.org/postgresql-system-architecture/)
+[6][Oracle Database Architecture](https://www.oracletutorial.com/oracle-administration/oracle-database-architecture/)
 	[7] [MySQL :: MySQL 8.0 Reference Manual :: 15 The InnoDB Storage Engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)
 	[8] [MySQL storage engines - Zetcode](https://zetcode.com/mysql/storageengines/)
 	[9] [Role of Apache Cassandra in the CAP theorem](https://www.msystechnologies.com/blog/role-of-apache-cassandra-in-the-cap-theorem/)
