@@ -230,13 +230,13 @@ Kĩ thuật hashing được chia thành 2 loại chính là: Static Hashing và
 - Cho phép máy chủ nhanh chóng điều hướng đến vị trí dữ liệu cần thiết trong bảng
 - Chỉ mục làm giảm lượng dữ liệu mà máy chủ phải quét/kiểm tra
 - Chỉ mục giúp máy chủ tránh sắp xếp và bảng tạm thời
-- 
-### 7. (BỔ SUNG) Tìm hiểu về một số loại database triển khai theo các tiêu chí trong định lý CAP
+
+### 6. (BỔ SUNG) Tìm hiểu về một số loại database triển khai theo các tiêu chí trong định lý CAP
 Định lý CAP: Khi phân vùng mạng xảy ra, một hệ thống phân tán phải lựa chọn giữa tính nhất quán và tính khả dụng. Việc tồn tại cả tính nhất quán và tính khả dụng là không thể.
 - C (Consistency): tính nhất quán của cơ sở dữ liệu. Xét một khung thời gian, mọi người dùng truy cập CSDL sẽ cùng đọc một dữ liệu. Để đảm bảo tính nhất quán này, khi một thông tin được cập nhật/một giao dịch thành công, các bản cập nhật sẽ được chuyển tiếp đến tất cả các nút ngay lập tức. Ngược lại, nếu giao dịch không thành công và không được lưu, các dữ liệu cập nhật về giao dịch sẽ không được lưu và được khôi phục. Dữ liệu được duy trì nhất quán trên tất cả các nút
 - A (Availability): tính khả dụng của cơ sở dữ liệu. Mọi yêu cầu được truy vấn đối với hệ thống phân tán đều nhận được phản hồi, bất kể có lỗi hoặc gián đoạn hệ thống. Hệ thống luôn hoạt động, không gián đoạn ngay cả khi có một số nút bị lỗi. Khi một số nút ngừng hoạt động, các nút còn lại phải đáp ứng các yêu cầu trong một khoảng thời gian phù hợp.
 - P (Partition Tolerance): khả năng chịu lỗi của cơ sở dữ liệu. Khi có lỗi mạng và có phân vùng, tồn tại một số nút không thể truy cập, toàn bộ hệ thống vẫn hoạt động bình thường và thực hiện các kiểm tra cần thiết để khôi phục trạng thái nhanh nhất có thể.
-#### 7.1. MongoDB (CP)
+#### 6.1. MongoDB (CP)
 MongoDB ưu tiên tính khả dụng và khả năng chịu lỗi hơn tính nhất quán mạnh mẽ. 
 MongoDB lưu trữ dữ liệu dưới dạng BSON (JSON nhị phân). CSDL này thường được sử dụng cho dữ liệu lớn và các ứng dụng thời gian thực (real-time) đặt nhiều vị trí khác nhau. 
 Cơ sở dữ liệu này đạt được tính khả dụng cao bằng cách sử dụng kiến trúc phân tán cótập bản sao dữ liệu. Tập bản sao dữ liệu gồm nhiều phiên bản dữ liệu, trong có có đúng một phiên bản đóng vai trò là nút chính (primary node). Nút chính có vai trò xử lý các thao tác ghi, còn các phiên bản khác đóng vai trò là nút phụ (secondary node) có nhiệm vụ sao chép dữ liệu từ nút chính. 
@@ -247,7 +247,7 @@ Theo cài đặt mặc định, máy khách đọc dữ liệu từ node chính,
 - Cơ chế sao chép dữ liệu cho phép tính nhất quán trễ trên tập bản sao dữ liệu. Các cập nhật dữ liệu trên nút chính được sao chép không đồng bộ sang các nút phụ, và có độ trễ nhất định trước khi tất cả các nút có dữ liệu nhất quán với nhau. 
 - Khi nút chính bị ngắt kết nối khỏi cụm hoặc máy khách bị ngắt kết nối khỏi nút chính, do trình điều khiển của MongoDB chỉ gửi các yêu cầu (đọc/ghi) đến nút chính nên tính khả dụng không được đảm bảo. 
 - Tuy nhiên, MongoDB cung cấp các mức độ nhất quán có thể tùy chọn theo cấu hình. Nó cung cấp các tùy chọn để thực thi đảm bảo tính nhất quán mạnh mẽ hơn dựa trên yêu cầu của ứng dụng. Ví dụ như có một thao tác tùy chọn là "read-preference" (đọc không ghi) cho phép máy khách đọc dữ liệu trực tiếp từ nút phụ. Nhưng các nút phụ có thể không có dữ liệu mới nhất được cập nhật nên tính nhất quán sẽ không cao. 
-#### 7.2. Cassandra (AP)
+#### 6.2. Cassandra (AP)
 Cassandra là cơ sở dữ liệu thuộc loại AP trong CAP, tập trung ưu tiên tính khả dụng và khả năng chịu lỗi của hệ thống.
 - Đây là một cơ sở dữ liệu dạng wide-column cho phép lưu trữ dữ liệu trên mạng phân tán. Kiến trúc của Cassandra là kiến trúc masterless, tất cả các nút trong hệ thống đều như nhau. Khác với MongoDB, nếu như nút chính bị lỗi, cần thực hiện thao tác tạo ra nút chính mới thì Cassandra không có nút chính. Nhờ vậy, cơ sở dữ liệu này có tính khả dụng cao
 - Một cơ sở dữ liệu logic được chia sẻ giữa một tập các nút, dữ liệu được phân vùng trên các nút dựa trên hàm băm của khóa phân vùng. Cassandra lưu trữ dữ liệu bằng cách chia đều dữ liệu trên toàn bộ nút, đảm bảo tính khả năng chịu lỗi trong CAP. Các thao tác đọc/ghi có thể thực hiện trên bất kỳ nút nào trong cụm
@@ -256,7 +256,7 @@ Cassandra là cơ sở dữ liệu thuộc loại AP trong CAP, tập trung ưu 
 Trong trường hợp mạng bị phân vùng, dữ liệu trở nên không nhất quán, cơ sở dữ liệu này cung cấp chức năng giúp các nút bắt kịp với các nút khác.
 
 ![Hình ảnh](https://sp-ao.shortpixel.ai/client/to_auto,q_lossy,ret_img,w_600/https://www.instaclustr.com/wp-content/uploads/2021/10/The-CAP-Theorem-With-Apache-Cassandra-and-MongoDB4-2-1024x1024.png)
- ### 8. Tài liệu tham khảo 
+ ### 7. Tài liệu tham khảo 
  [1]  [Architecture of MySQL - GeeksforGeeks](https://www.geeksforgeeks.org/architecture-of-mysql/)
  
  [2]  [MySQL :: MySQL 8.0 Reference Manual :: 8.3 Optimization and Indexes](https://dev.mysql.com/doc/refman/8.0/en/optimization-indexes.html)
@@ -264,12 +264,22 @@ Trong trường hợp mạng bị phân vùng, dữ liệu trở nên không nh�
  [3]  [SQL vs. NoSQL Database: When to Use, How to Choose – Machine Learning for Developers (ml4devs.com)](https://www.ml4devs.com/articles/datastore-choices-sql-vs-nosql-database/)
  
  [4]  [O'Reilly High Performance MySQL 3rd Edition Mar 2012.pdf at master · lackrp/lackrp-public (github.com)](https://github.com/lackrp/lackrp-public/blob/master/eBooks/O'Reilly.High.Performance.MySQL.3rd.Edition.Mar.2012.pdf)
+ 
+ 
  [5] [PostgreSQL System Architecture - GeeksforGeeks]( https://www.geeksforgeeks.org/postgresql-system-architecture/)
+ 
+ 
  [6][Oracle Database Architecture](https://www.oracletutorial.com/oracle-administration/oracle-database-architecture/)
+ 
+ 
  [7] [MySQL :: MySQL 8.0 Reference Manual :: 15 The InnoDB Storage Engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)
  
  
  [8] [MySQL storage engines - Zetcode](https://zetcode.com/mysql/storageengines/)
-	[9] [Role of Apache Cassandra in the CAP theorem](https://www.msystechnologies.com/blog/role-of-apache-cassandra-in-the-cap-theorem/)
-	[10] [The CAP Theorem With Apache Cassandra and MongoDB - instaclustr](https://www.instaclustr.com/blog/cassandra-vs-mongodb/)
+	
+ 
+ [9] [Role of Apache Cassandra in the CAP theorem](https://www.msystechnologies.com/blog/role-of-apache-cassandra-in-the-cap-theorem/)
+	
+ 
+ [10] [The CAP Theorem With Apache Cassandra and MongoDB - instaclustr](https://www.instaclustr.com/blog/cassandra-vs-mongodb/)
 	
